@@ -2,6 +2,9 @@
 #.DS_Store
 .DS_Store
 
+# Modules
+node_modules/
+
 # Prerequisites
 *.d
 
