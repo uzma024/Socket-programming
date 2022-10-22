@@ -2,12 +2,36 @@
 // programming
 #include <arpa/inet.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <time.h>
 
 #define PORT 8080
+
+char* substr(const char *src, int m, int n)
+{
+    // get the length of the destination string
+    int len = n - m;
+ 
+    // allocate (len + 1) chars for destination (+1 for extra null character)
+    char *dest = (char*)malloc(sizeof(char) * (len + 1));
+ 
+    // extracts characters between m'th and n'th index from source string
+    // and copy them into the destination string
+    for (int i = m; i < n && (*(src + i) != '\0'); i++)
+    {
+        *dest = *(src + i);
+        dest++;
+    }
+ 
+    // null-terminate the destination string
+    *dest = '\0';
+ 
+    // return the destination string
+    return dest - len;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -43,15 +67,15 @@ int main(int argc, char const *argv[])
 
     while(1){
         char hello[1024];
-        printf(">> ");
+        printf("\n>> ");
         scanf("%s", hello);
         
         // strcat(hello," at: ");
 
         time_t t = time(NULL);
-        char *time_string = ctime(&t);
+        char *time_string = substr(ctime(&t), 11, 16);
         
-        strcat(strcat(hello, "\n"), time_string);
+        strcat(strcat(hello, " ->"), time_string);
 
         // printf("Message is: %s", hello);
 
