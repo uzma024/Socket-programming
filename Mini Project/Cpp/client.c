@@ -10,6 +10,19 @@
 
 #define PORT 8080
 
+void delay(int number_of_seconds)
+{
+    // Converting time into milli_seconds
+    int milli_seconds = 1000 * number_of_seconds;
+ 
+    // Storing start time
+    clock_t start_time = clock();
+ 
+    // looping till required time is not achieved
+    while (clock() < start_time + milli_seconds)
+        ;
+}
+
 char* substr(const char *src, int m, int n)
 {
     // get the length of the destination string
@@ -73,9 +86,9 @@ int main(int argc, char const *argv[])
         // strcat(hello," at: ");
 
         time_t t = time(NULL);
-        char *time_string = substr(ctime(&t), 11, 16);
+        char *time_string = substr(ctime(&t), 11, 19);
         
-        strcat(strcat(hello, " ->"), time_string);
+        strcat(strcat(hello, " \nMessage sent at: "), time_string);
 
         // printf("Message is: %s", hello);
 
@@ -84,6 +97,9 @@ int main(int argc, char const *argv[])
         printf("Message sent\n\n");
         valread = read(sock, buffer, 1024);
         printf("%s\n", buffer);
+        time_t t1 = time(NULL);
+        char *time_string1 = substr(ctime(&t1), 11, 19);
+        printf("Message recieved at: %s\n", time_string1);
     }
 
     // send(sock, hello, strlen(hello), 0);
