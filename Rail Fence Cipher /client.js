@@ -58,7 +58,7 @@ function Encrypt(m){
     }
   }
   
-  console.log("matrix: ", mat);
+  // console.log("matrix: ", mat);
   for(var i=0;i<len;i++){
     var j=0;
     for(j;j<key;j++){
